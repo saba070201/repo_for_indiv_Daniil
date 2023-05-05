@@ -5,22 +5,25 @@
 #     def __str__(self) -> str:
 #         return self.message
 # raise CustomException()
-def printRoman(number):
-    num = [1, 4, 5, 9, 10, 40, 50, 90,
-        100, 400, 500, 900, 1000]
-    sym = ["I", "IV", "V", "IX", "X", "XL",
-        "L", "XC", "C", "CD", "D", "CM", "M"]
-    i = 12
+from bidict import bidict
+d=bidict({'1':'a','2':'b'})
+print(d.inverse['a'])
+# def printRoman(number):
+#     num = [1, 4, 5, 9, 10, 40, 50, 90,
+#         100, 400, 500, 900, 1000]
+#     sym = ["I", "IV", "V", "IX", "X", "XL",
+#         "L", "XC", "C", "CD", "D", "CM", "M"]
+#     i = 12
       
-    while number:
-        div = number // num[i]
-        number %= num[i]
+#     while number:
+#         div = number // num[i]
+#         number %= num[i]
   
-        while div:
-            print(sym[i], end = "")
-            div -= 1
-        i -= 1
-dict_rom_to_arab={'I':1,'V':5,'X':10}
+#         while div:
+#             print(sym[i], end = "")
+#             div -= 1
+#         i -= 1
+# dict_rom_to_arab={'I':1,'V':5,'X':10}
 
 def from_roman_to_arab(roman,d):
     temp_arr=list(roman)
@@ -34,4 +37,4 @@ def from_roman_to_arab(roman,d):
             arr_res[i-1]=-arr_res[i-1]
         i-=1
     return sum(arr_res)
-print(from_roman_to_arab('XXIV',dict_rom_to_arab))
+# print(from_roman_to_arab('XXIV',dict_rom_to_arab))

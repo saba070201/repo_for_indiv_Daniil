@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+{% for i in notes %}
+<a href="{{ url_for('note',note_pk=i.id) }}">
+  <h2>{{ i.title }}</h2>
+</a>
+
+<h3>{{ i.memo }}</h3>
+{% if i.important==1 %}
+<h5>важная задача</h5>
+{% else %}
+<h5>не важная задача</h5>
+{% endif %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+
+{% extends 'newsapp/base.html' %}
+
+  {% block content %}
+
+  {% for i in data %}
+  <div class="items">
+    <div class="item">
+  
+      
+      <img src="{{ i.image.url }}" alt="картинка" height="200px" width="200px">
+      <h3>
+        <a href="{% url 'item' i.id %}">{{ i.title }} </a>
+     
+      </h3>
+     
+    </div>
+  </div>
+
+
+  {% endfor %}
+
+  {% endblock %}

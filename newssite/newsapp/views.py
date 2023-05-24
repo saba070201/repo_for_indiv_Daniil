@@ -4,7 +4,7 @@ from newsapp import models
 def home(request):
     data=models.Item.objects.all()
     return render(request,'newsapp/home.html',{'data':data})
-@login_required
+
 def item(request,item_id):
     u=request.user
     obj=get_object_or_404(models.Item,pk=item_id)

@@ -2,22 +2,30 @@
 {% extends 'newsapp/base.html' %}
 
   {% block content %}
+<div class="container mt-5">
 
+<h2>Последние новости</h2>
   {% for i in data %}
-  <div class="items">
-    <div class="item">
-  
+
+  <div class="card mb-3">
+    <img src="{{ i.image.url }}" class="card-img-top" alt="картинка" >
+    <div class="card-body">
+      <h5 class="card-title">{{ i.title }}</h5>
+      <p class="card-text">{{ i.memo }}</p>
+      <a href="{% url 'item' i.id %}" class="btn btn-info">читать</a>
+      <!-- <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small></p> -->
+    </div>
+  </div>
       
-      <img src="{{ i.image.url }}" alt="картинка" height="200px" width="200px">
+      <!-- <img src="{{ i.image.url }}" alt="картинка" height="200px" width="200px">
       <h3>
         <a href="{% url 'item' i.id %}">{{ i.title }} </a>
      
       </h3>
-     
-    </div>
-  </div>
+      -->
+  
 
 
   {% endfor %}
-
+</div>
   {% endblock %}

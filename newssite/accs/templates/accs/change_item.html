@@ -1,0 +1,15 @@
+{% extends 'coreapp/base.html' %}
+{% load static %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button  type="submit" class="btn btn-primary">Редактировать</button>
+</form>
+{% if bigitem.published %}
+<form action="" method="post"> <button  class="btn btn-danger" type="submit">Скрыть </button> </form>
+{% else %}
+<form action="" method="post">  </form>
+{% endif %}
+<small>{{ error }}</small>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'coreapp/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+<div class="card mt-2 bg-secondary">
+
+  <div class="card-body">
+
+   <h2>{{ bigitem.title }}</h2>
+
+
+  </div>
+</div>
+
+{% for i in smallitems %}
+<div class="card mt-5 bg-secondary ">
+
+  <div class="card-body">
+  
+     <h4>  {{ i.title }}</h4>   
+
+
+  </div>
+</div>
+
+{% endfor %}
+</div>
+{% endblock %}

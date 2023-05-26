@@ -1,8 +1,9 @@
-{% extends 'newsapp/base.html' %}
+{% extends 'coreapp/base.html' %}
 
   {% block content %}
-  {{ obj.title }}
-  {{ obj.author }}
-  current user
-  {{u}}
+  {{ parrentobj.title }}
+  {{ parrentobj.author }}
+{% for i in childobject %}
+{{ i.title }}
+{% endfor %} 
   {% endblock %}

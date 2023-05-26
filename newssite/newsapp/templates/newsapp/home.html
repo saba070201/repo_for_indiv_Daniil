@@ -1,31 +1,29 @@
 
-{% extends 'newsapp/base.html' %}
+{% extends 'coreapp/base.html' %}
 
   {% block content %}
 <div class="container mt-5">
 
 <h2>Последние новости</h2>
+{% autoescape off %}
   {% for i in data %}
-
+  {% if i.published %}
   <div class="card mb-3">
+    {% if i.image %}
     <img src="{{ i.image.url }}" class="card-img-top" alt="картинка" >
+    {% endif %}
     <div class="card-body">
       <h5 class="card-title">{{ i.title }}</h5>
       <p class="card-text">{{ i.memo }}</p>
-      <a href="{% url 'item' i.id %}" class="btn btn-info">читать</a>
-      <!-- <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small></p> -->
+      <a href="{% url 'newsapp:item' i.id %}" class="btn btn-info">читать</a>
     </div>
   </div>
-      
-      <!-- <img src="{{ i.image.url }}" alt="картинка" height="200px" width="200px">
-      <h3>
-        <a href="{% url 'item' i.id %}">{{ i.title }} </a>
-     
-      </h3>
-      -->
+  {% endif %}
+  
   
 
 
   {% endfor %}
 </div>
+{% endautoescape %}
   {% endblock %}

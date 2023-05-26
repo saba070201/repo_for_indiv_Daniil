@@ -22,8 +22,8 @@ from newsapp import views
 from accs.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name='home'),
-    path('item-<int:item_id>/',views.item,name='item'),
+    path('',include('coreapp.urls')),
+    path('news/',include('newsapp.urls')),
     path('accounts/',include('accs.urls'))
      
 ]

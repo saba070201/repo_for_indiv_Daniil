@@ -6,8 +6,9 @@ def home(request):
     return render(request,'newsapp/home.html',{'data':data})
 
 def item(request,item_id):
-    u=request.user
-    obj=get_object_or_404(models.Item,pk=item_id)
-    return render(request,'newsapp/item.html',{'obj':obj,'u':u})
+  
+    parrentobj=get_object_or_404(models.Item,pk=item_id)
+    childobject=models.SubItem.objects.all().filter(item=item_id)
+    return render(request,'newsapp/item.html',{'parrentobj':parrentobj,'childobject':childobject})
     
 # Create your views here.

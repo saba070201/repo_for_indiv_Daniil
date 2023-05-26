@@ -1,0 +1,12 @@
+from newsapp.models import * 
+from django.forms import ModelForm
+
+class CreateItemForm(ModelForm):
+    class Meta:
+        model=Item
+        fields=['title','memo','image']
+
+class ChangeItemForm(ModelForm):
+    class Meta:
+        model=Item
+        fields=['title','memo']

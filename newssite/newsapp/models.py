@@ -1,14 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
+class Like(models.Model):
+    user=models.ForeignKey(User,related_name='likes',on_delete=models.CASCADE)
+    content_type=models.ForeignKey(ContentType,on_delete=models.CASCADE)
+    object_id=models.PositiveBigIntegerField()
+    content_object=GenericForeignKey('content_type','object_id')
 
 class Item(models.Model):
     title=models.CharField(max_length=100)
     memo =models.TextField()
     image=models.ImageField(upload_to='newsapp/images',null=True,blank=True)
-
     date=models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     published=models.BooleanField(default=False,null=False,blank=False)
+    likes=GenericRelation(Like)
+    @property
+    def total_likes(self):
+        return self.likes.count()
     def __str__(self) :
         return self.title +'%with id%'+str(self.id)
     

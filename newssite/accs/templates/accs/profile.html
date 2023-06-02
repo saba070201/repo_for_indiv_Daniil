@@ -1,0 +1,37 @@
+{% extends 'coreapp/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <h2 class="mt-3">Мой профиль</h2>
+<h2 class="mt-3">Мои статьи</h2>
+<h3 class="mt-3">Опубликованные</h3>
+{% for i in publicnews %}
+
+  <div class="card mt-2 bg-secondary ">
+  
+    <div class="card-body">
+  
+    <a class="nav-link" href="{% url 'accs:viewitem' i.id %}"><h4>{{ i.title }}</h4></a>
+  
+    <a href="#" class="btn btn-outline-info">скрыть </a>
+    </div>
+  </div>
+{% endfor %}
+<h3 class="mt-3">Скрытые</h3>
+{% for j in shadownews %}
+
+<div class="card mt-2 bg-secondary ">
+  
+  <div class="card-body">
+
+  <a class="nav-link" href="{% url 'accs:viewitem' j.id %}"><h4>{{ j.title }}</h4></a>
+
+  <a href="#" class="btn btn-outline-info">опубликовать </a>
+  </div>
+</div>
+{% endfor %}
+<br>
+<a class="btn btn-outline-success" href="{% url 'accs:createitem'  %}" role="button">Добавить статью</a>
+</div>
+
+{% endblock %}

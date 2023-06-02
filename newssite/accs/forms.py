@@ -10,3 +10,8 @@ class ChangeItemForm(ModelForm):
     class Meta:
         model=Item
         fields=['title','memo']
+
+class Create_SubItem_Form(ModelForm):
+    class Meta:
+        model=SubItem
+        fields=['title','memo','image','video']

@@ -67,8 +67,35 @@ def change_item(request,item_id):
    bigitem=get_object_or_404(Item,pk=item_id,author=request.user)
    if request.method=='GET':
       form=CreateItemForm(instance=bigitem)
-      return render(request,'accs/change_item.html',{'form':CreateItemForm(),'bigitem':bigitem})
+      return render(request,'accs/change_item.html',{'bigitem':bigitem})
    else: 
       form=CreateItemForm(request.POST,request.FILES,instance=bigitem)
       form.save(commit=True)
       return redirect('newsapp:home')
+   
+
+@login_required
+def create_subitem(request,item_id):
+   if request.method=='GET':
+        return render(request,'accs/create_subitem.html',{'form':Create_SubItem_Form()})
+   else: 
+      try:
+         form=Create_SubItem_Form(request.POST, request.FILES)
+         newitem=form.save(commit=False)
+         newitem.item=Item.objects.get(id=item_id)
+         newitem.save()
+         return redirect('accs:viewitem',item_id=item_id)
+      except ValueError:
+          return render(request,'accs/create_subitem.html',{'form':Create_SubItem_Form(),'error':'неккоректные данные'})
+
+
+@login_required # недоделанная 
+def change_subitem(request,item_id,subitem_id):
+   item=get_object_or_404(Item,pk=item_id,author=request.user)
+   subitem=get_object_or_404(SubItem,pk=subitem_id)
+
+@login_required
+def profile(request):
+   publicnews=Item.objects.filter(author=request.user,published=True)
+   shadownews=Item.objects.filter(author=request.user,published=False)
+   return render(request,'accs/profile.html',{'publicnews':publicnews,'shadownews':shadownews})

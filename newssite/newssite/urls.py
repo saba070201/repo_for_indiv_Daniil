@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('coreapp.urls')),
     path('news/',include('newsapp.urls')),
-    path('accounts/',include('accs.urls'))
+    path('accs/',include('accs.urls'))
      
 ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

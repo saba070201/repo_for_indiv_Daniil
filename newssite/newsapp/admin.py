@@ -3,4 +3,5 @@ from newsapp.models import *
 admin.site.register(Item)
 admin.site.register(SubItem)
 admin.site.register(Like)
+admin.site.register(Tag)
 # Register your models here.

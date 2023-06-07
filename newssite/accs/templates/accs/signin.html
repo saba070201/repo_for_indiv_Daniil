@@ -1,6 +1,14 @@
+{% extends 'coreapp/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-3">
+
+  <h2>Форма входа</h2>
 <form action="" method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Войти">
+  <button type="submit" class="btn btn-primary">войти</button>
 </form>
 <h6> {{ error }}</h6>
+</div>
+{% endblock %}

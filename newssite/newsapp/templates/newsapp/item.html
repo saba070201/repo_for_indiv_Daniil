@@ -1,9 +1,34 @@
 {% extends 'coreapp/base.html' %}
 
   {% block content %}
-  {{ parrentobj.title }}
-  {{ parrentobj.author }}
+  <div class="container mt-3">
+    <h2>
+      {{ parrentobj.title }}
+    </h2>
+<small class="text-muted">{{ parrentobj.author }}</small>
+
+{%  for j in tags %}
+<small class="text-muted">{{ j.name }}</small>
+{% endfor %}
 {% for i in childobject %}
-{{ i.title }}
+<h3>
+  {{ i.title }}
+</h3>
+<p>{{ i.memo }}</p>
+
+{% if i.image %}
+<img src="{{ i.image.url }}" alt="картинка">
+{% endif %}
 {% endfor %} 
+
+<br> 
+
+
+
+{% if parrentobj.author == user %}
+<a href="{% url 'newsapp:open_item_in_author_mode' parrentobj.id %}"><b>Раскрыть</b></a>
+{% endif %}
+
+</div>
+
   {% endblock %}

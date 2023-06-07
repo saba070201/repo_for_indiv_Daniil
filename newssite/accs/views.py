@@ -67,10 +67,23 @@ def change_item(request,item_id):
    bigitem=get_object_or_404(Item,pk=item_id,author=request.user)
    if request.method=='GET':
       form=CreateItemForm(instance=bigitem)
-      return render(request,'accs/change_item.html',{'bigitem':bigitem})
+      tags=bigitem.tags.all()
+      return render(request,'accs/change_item.html',{'bigitem':bigitem,'tags':tags})
    else: 
       form=CreateItemForm(request.POST,request.FILES,instance=bigitem)
-      form.save(commit=True)
+      bigitem=form.save(commit=True)
+      tags=str(request.POST['tags']) # если пользователь дурачок, то он не поставит пробелы и надо бы решить эту проблему но можно и не решать пусть другие решают 
+      tags=tags.split()
+      bigitem.tags.clear()
+      for i in tags: 
+         try: 
+            t=Tag.objects.create(name=i)
+
+         except: 
+            t=Tag.objects.get(name=i)
+         finally:
+            bigitem.tags.add(t)
+      bigitem.save()
       return redirect('newsapp:home')
    
 
@@ -89,13 +102,31 @@ def create_subitem(request,item_id):
           return render(request,'accs/create_subitem.html',{'form':Create_SubItem_Form(),'error':'неккоректные данные'})
 
 
-@login_required # недоделанная 
+@login_required  
 def change_subitem(request,item_id,subitem_id):
-   item=get_object_or_404(Item,pk=item_id,author=request.user)
-   subitem=get_object_or_404(SubItem,pk=subitem_id)
+   bigitem=get_object_or_404(Item,pk=item_id,author=request.user)
+   subitem=get_object_or_404(SubItem,pk=subitem_id,item=bigitem)
+   if request.method=='GET':
+      form=Create_SubItem_Form(instance=subitem)
+      return render(request,'accs/change_subitem.html',{'subitem':subitem})
+   else: 
+      form=Create_SubItem_Form(request.POST,request.FILES,instance=subitem)
+      form.save(commit=True)
+      return redirect('accs:viewitem',item_id=item_id)
+
 
 @login_required
 def profile(request):
    publicnews=Item.objects.filter(author=request.user,published=True)
    shadownews=Item.objects.filter(author=request.user,published=False)
    return render(request,'accs/profile.html',{'publicnews':publicnews,'shadownews':shadownews})
+
+@login_required
+def publication(request,item_id):
+   item=get_object_or_404(Item,pk=item_id,author=request.user)
+   if item.published: 
+      item.published=False
+   else: 
+      item.published=True
+   item.save()
+   return redirect('accs:profile')

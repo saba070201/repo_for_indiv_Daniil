@@ -10,9 +10,10 @@ urlpatterns = [
     path('sign-in/',signin,name='signin'),
     path('sign-out/',signout,name='signout'),
     path('create-item/',createitem,name='createitem'),
-    path('view-item-<int:item_id>/',viewitem,name='viewitem'), # сделать ссылки на изменение статьи 
+    path('view-item-<int:item_id>/',viewitem,name='viewitem'), 
     path('change-item-<int:item_id>/',change_item,name='change_item'), 
-    path('change-subitem-<int:item_id>/',change_subitem,name='change_item'),# над этим стоит задуматься 
+    path('change-item-<int:item_id>/change-subitem-<int:subitem_id>/',change_subitem,name='change_subitem'),
     path('change-item-<int:item_id>/create-subitem/',create_subitem,name='create_subitem'),
-    path('profile/',profile,name='profile')
+    path('profile/',profile,name='profile'),
+    path('publication-<int:item_id>/',publication,name='publication')
 ]

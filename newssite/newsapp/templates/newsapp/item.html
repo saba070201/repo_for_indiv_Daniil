@@ -5,8 +5,9 @@
     <h2>
       {{ parrentobj.title }}
     </h2>
-<small class="text-muted">{{ parrentobj.author }}</small>
-
+<small class="text-muted">автор: {{ parrentobj.author }}</small>
+<br>
+<small class="text-muted"> просмотры: {{ countofviews }}</small>
 {%  for j in tags %}
 <small class="text-muted">{{ j.name }}</small>
 {% endfor %}

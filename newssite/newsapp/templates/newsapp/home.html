@@ -4,7 +4,15 @@
   {% block content %}
 <div class="container mt-5">
 
-<h2>Последние новости</h2>
+<h2>Рекомендуемые статьи</h2>
+<form action="" method="get">
+<select name="filter_by" id="">
+  <option value="up" {% if user_filter_status == 'up' %} selected {% endif %}>по возрастанию</option>
+  <option value="down" {% if user_filter_status == 'down' %} selected {% endif %} >по убыванию</option>
+  <input type="submit" value="отфильтровать">
+</select>
+</form>
+<br>
 {% autoescape off %}
   {% for i in data %}
   {% if i.published %}

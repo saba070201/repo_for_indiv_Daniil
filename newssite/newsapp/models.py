@@ -23,11 +23,14 @@ class Item(models.Model):
     published=models.BooleanField(default=False,null=False,blank=False)
     likes=GenericRelation(Like)
     tags=models.ManyToManyField(Tag)
+    class Meta:
+        permissions=[('can_read_item','Can read item')]
     @property
     def total_likes(self):
         return self.likes.count()
     def __str__(self) :
         return self.title +'%with id%'+str(self.id)
+
     
 class SubItem(models.Model):
     title=models.CharField(max_length=100)
@@ -37,4 +40,11 @@ class SubItem(models.Model):
     item=models.ForeignKey(Item,on_delete=models.CASCADE)
     def __str__(self) :
           return self.title +'%with parrent id%'+str(self.item) 
-# Create your models here.
+
+
+class Review(models.Model):
+    user=models.ForeignKey(User,on_delete=models.PROTECT)
+    item=models.ForeignKey(Item,on_delete=models.CASCADE)
+    class Meta:
+        unique_together=('user','item',)
+
